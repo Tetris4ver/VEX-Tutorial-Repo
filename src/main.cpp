@@ -65,7 +65,9 @@ void competition_initialize() {}
  * will be stopped. Re-enabling the robot will restart the task, not re-start it
  * from where it left off.
  */
-void autonomous() {}
+void autonomous() {
+	offensive_route(); 
+}
 
 /**
  * Runs the operator control code. This function will be started in its own task
@@ -93,7 +95,7 @@ void autonomous() {}
 		// controller defined in globals
 		// .get_analog() returns the reading [-127, 127] of a controller
 		double left = ((controller.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y)) / 127.0);
-		double right = ((controller.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X)) / 127.0); 
+		double right = ((controller.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X)) / 127.0) * -1; 
 
 		// Adjust sensitivity as you see fit
 		// left = left * 0.88;
@@ -115,14 +117,12 @@ void autonomous() {}
 		// 	turn(40);
 		// }
 
-		// Example Implementation of Intake
-		// if(controller.get_digital(pros::E_CONTROLLER_DIGITAL_L1)){
-		// 	intake.move_voltage(12000);
-		// } else if (controller.get_digital(pros::E_CONTROLLER_DIGITAL_L2)){ {
-		// 	intake.move_voltage(-12000);
-		// } else {
-		// 	intake.move_voltage(0);
-		// }
+		if(controller.get_digital(pros::E_CONTROLLER_DIGITAL_L1)){
+			intake.move_voltage(12000); } 
+		else if (controller.get_digital(pros::E_CONTROLLER_DIGITAL_L2)) {
+			intake.move_voltage(-12000); } 
+		else {
+			intake.move_voltage(0);}
 
 		// Delay is in milliseconds
 		// Important because in a while loop, this is being repeated infinitely

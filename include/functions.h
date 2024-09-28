@@ -4,7 +4,7 @@
 using namespace pros;
 
 void stop_motors();
-void drive_time(int time);
+void drive_time(int time, double speed = 1);
 int sign(double num);
 
 std::tuple<double, double, double> turn_lookup(double degrees);

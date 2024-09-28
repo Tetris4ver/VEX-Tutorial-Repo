@@ -8,7 +8,7 @@ void stop_motors() {
 }
 
 // time in milliseconds
-void drive_time(int time) {
+void drive_time(int time, double speed) {
     int dir;
     if(time < 0){
         dir = -1;
@@ -16,10 +16,10 @@ void drive_time(int time) {
     } else{
         dir = 1;
     }
-    left_dt.move_voltage(12000 * dir);
-    right_dt.move_voltage(12000 * dir);
+    left_dt.move_voltage(speed * 12000 * dir);
+    right_dt.move_voltage(speed * 12000 * dir);
     pros::delay(time);
-    void stop_motors();
+    stop_motors();
 }
 
 int sign(double num) {

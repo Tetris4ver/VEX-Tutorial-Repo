@@ -9,6 +9,7 @@ using namespace pros;
 // const keyword indicates that the variable declared cannot change
 extern const double gear_ratio; 
 extern const double wheel_diameter;
+extern const double pi;
 
 // 6 motor drive (front/middle/back, left/right)
 extern Motor fl;
@@ -19,7 +20,7 @@ extern Motor bl;
 extern Motor br;
 
 // Intake
-// extern Motor intake; 
+extern MotorGroup intake; 
 
 // In PROS, one important function is grouping motors together. 
 // Especially in differential drive trains, the left and right sides operate seperately.
@@ -35,7 +36,8 @@ extern IMU inertial;
 // extern Rotation right_rot;
 
 // Example piston
-extern adi::DigitalOut piston;
+extern adi::DigitalOut mogo_clamp;
+
 
 // Controller
 extern Controller controller; 

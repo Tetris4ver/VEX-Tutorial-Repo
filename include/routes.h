@@ -4,3 +4,4 @@
 using namespace pros;
 
 void example_route();
+void offensive_route();

@@ -5,6 +5,7 @@ using namespace pros;
 // Depends on your robot
 const double gear_ratio = 0.75;
 const double wheel_diameter = 3.25;
+const double pi = 3.1415926;
 
 // Motors
 /*
@@ -23,15 +24,15 @@ Defining a motor:
 		Usually use degrees or rotations. This tutorial will use rotations.
 */
 // Please note that these are subject to change depending on the robot's configuration.
-Motor fl(-11, v5::MotorGears::blue, v5::MotorUnits::rotations);
-Motor ml(-12, v5::MotorGears::blue, v5::MotorUnits::rotations);
-Motor bl(-13, v5::MotorGears::blue, v5::MotorUnits::rotations);
+Motor fl(16, v5::MotorGears::blue, v5::MotorUnits::rotations);
+Motor ml(18, v5::MotorGears::blue, v5::MotorUnits::rotations);
+Motor bl(3, v5::MotorGears::blue, v5::MotorUnits::rotations);
 
-Motor fr(1, v5::MotorGears::blue, v5::MotorUnits::rotations);
-Motor mr(2, v5::MotorGears::blue, v5::MotorUnits::rotations);
-Motor br(3, v5::MotorGears::blue, v5::MotorUnits::rotations);
+Motor fr(-13, v5::MotorGears::blue, v5::MotorUnits::rotations);
+Motor mr(-12, v5::MotorGears::blue, v5::MotorUnits::rotations);
+Motor br(-11, v5::MotorGears::blue, v5::MotorUnits::rotations);
 
-// Motor intake(7, v5::MotorGears::green, v5::MotorUnits::rotations);
+MotorGroup intake({4,-5}, v5::MotorGears::blue, v5::MotorUnits::rotations);
 
 // Motor Groups
 // Unfortunately, MotorGroup does not directly accept motor instances, only port numbers. 
@@ -40,14 +41,14 @@ MotorGroup left_dt({fl.get_port(), ml.get_port(), bl.get_port()}, v5::MotorGears
 MotorGroup right_dt({fr.get_port(), mr.get_port(), br.get_port()}, v5::MotorGears::blue, v5::MotorUnits::rotations);
 
 // Inertial
-IMU inertial(21);
+IMU inertial(7);
 
 // Rotation Sensors
 // Rotation left_rot(9); 
 // Rotation right_rot(10);
 
 // Pistons (Ports A-H)
-adi::DigitalOut piston('A');
+adi::DigitalOut mogo_clamp('G');
 
 // Controller
 Controller controller(E_CONTROLLER_MASTER);
