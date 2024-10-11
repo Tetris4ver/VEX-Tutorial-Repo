@@ -1,4 +1,5 @@
 #include "main.h"
+#include "globals.h"
 
 /**
  * A callback function for LLEMU's center button.
@@ -91,6 +92,7 @@ void autonomous() {
 	while (true) {
 		left_dt.set_brake_mode_all(pros::E_MOTOR_BRAKE_COAST);
 		right_dt.set_brake_mode_all(pros::E_MOTOR_BRAKE_COAST);
+		bool clamp_state = false;
 
 		// controller defined in globals
 		// .get_analog() returns the reading [-127, 127] of a controller
@@ -116,14 +118,18 @@ void autonomous() {
 		// if(controller.get_digital(pros::E_CONTROLLER_DIGITAL_A)){
 		// 	turn(40);
 		// }
-
-		if(controller.get_digital(pros::E_CONTROLLER_DIGITAL_L1)){
+		//intake
+		if(controller.get_digital(pros::E_CONTROLLER_DIGITAL_R1)){
 			intake.move_voltage(12000); } 
-		else if (controller.get_digital(pros::E_CONTROLLER_DIGITAL_L2)) {
+		else if (controller.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
 			intake.move_voltage(-12000); } 
 		else {
 			intake.move_voltage(0);}
-
+		//mogo clamp
+		if(controller.get_digital(pros::E_CONTROLLER_DIGITAL_L1)){
+			clamp_state = !clamp_state;
+			mogo_clamp.set_value(clamp_state);
+		}
 		// Delay is in milliseconds
 		// Important because in a while loop, this is being repeated infinitely
 		// We do not want the brain to crash
