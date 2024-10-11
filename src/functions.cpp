@@ -115,19 +115,19 @@ std::tuple<double, double, double> drive_lookup(double displacement) {
 	std::tuple<double, double, double> constants;
 
 	if (fabs(displacement) <= 8) {
-		get<0>(constants) = 0; 
+		get<0>(constants) = 150; 
 		get<1>(constants) = 0; 
-		get<2>(constants) = 0; 
+		get<2>(constants) = 200; 
 	}
 	else if (fabs(displacement) <= 15) {
-		get<0>(constants) = 0;
+		get<0>(constants) = 175;
 		get<1>(constants) = 0;
-		get<2>(constants) = 0;
+		get<2>(constants) = 225;
 	}
 	else if (fabs(displacement) <= 25) {
-		get<0>(constants) = 0;
+		get<0>(constants) = 200;
 		get<1>(constants) = 0;
-		get<2>(constants) = 0; 
+		get<2>(constants) = 250; 
 	} 
 	else if (fabs(displacement) <= 35) {
 		get<0>(constants) = 0;
@@ -145,9 +145,9 @@ std::tuple<double, double, double> drive_lookup(double displacement) {
 		get<2>(constants) = 0;
 	}
 	else if (fabs(displacement) <= 65) {
-		get<0>(constants) = 0;
-		get<1>(constants) = 0;
-		get<2>(constants) = 0;
+		get<0>(constants) = 500;
+		get<1>(constants) = 5;
+		get<2>(constants) = 250;
 	}
 	else { 
 		get<0>(constants) = 0;

@@ -16,16 +16,21 @@ void example_route(){
     // auton goes here
 }
 void offensive_route(){
-    mogo_clamp.set_value(1);
-    delay(100);
-    drive_time(250,-1);
-    delay(10);
     mogo_clamp.set_value(0);
+    delay(100);
+    drive_time(115,-1);
+    mogo_clamp.set_value(1);
     delay(10);
-    drive_time(200,1);
     intake.move_voltage(12000);
+    delay(50);
+    drive_time(200,1);
+    intake.move_voltage(0);
     delay(20);
     drive_time(250,1);
+    intake.move_voltage(12000);
+    delay(10);
+    drive_time(350); 
+    mogo_clamp.set_value(0);
     turn(-90);
     
     /*
