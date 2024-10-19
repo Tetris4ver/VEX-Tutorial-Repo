@@ -71,9 +71,9 @@ std::tuple<double, double, double> turn_lookup(double degrees) {
 		get<2>(constants) = 0;
 	}
 	else if (fabs(degrees) <= 90){
-		get<0>(constants) = 0;
+		get<0>(constants) = 100;
 		get<1>(constants) = 0;
-		get<2>(constants) = 0;
+		get<2>(constants) = 80;
 	}
 	else if (fabs(degrees) <= 105) {
 		get<0>(constants) = 0;
@@ -107,7 +107,7 @@ std::tuple<double, double, double> turn_lookup(double degrees) {
 	}
 	
 	return constants;
-}
+}	 
 
 // This is an example implementation of a lookup function for straight drive. 
 // All constants are set to 0, you will need to tune them.
@@ -159,11 +159,13 @@ std::tuple<double, double, double> drive_lookup(double displacement) {
 }
 
 void turn(double angle) {
+
 	// constants
 	std::tuple<double, double, double> constants = turn_lookup(angle);
 	double kP = get<0>(constants);
 	double kI = get<1>(constants);
 	double kD = get<2>(constants);
+
 	
 	// variables
 	double error;
@@ -173,8 +175,8 @@ void turn(double angle) {
 	double previous_error = angle;
 	
 	double error_threshold = 1.5; 
-	double error_timer = 0; 
-	double total_timer = 0; 
+	double error_timer = 150; 
+	double total_timer = 1200; 
 	
 	double error_timeout = 150; 
 	double max_timeout = 1200; 
@@ -185,7 +187,6 @@ void turn(double angle) {
 	right_dt.set_brake_mode_all(E_MOTOR_BRAKE_HOLD);
 	
 	double target = inertial.get_rotation() + angle;
-	
 	// PID loop
 	while (!(error_timer >= error_timeout) || !(total_timer >= max_timeout)) {
 		error = target - inertial.get_rotation();

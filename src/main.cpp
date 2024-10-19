@@ -1,5 +1,8 @@
 #include "main.h"
+#include "functions.h"
 #include "globals.h"
+#include "pros/misc.h"
+#include "routes.h"
 
 /**
  * A callback function for LLEMU's center button.
@@ -67,7 +70,7 @@ void competition_initialize() {}
  * from where it left off.
  */
 void autonomous() {
-	offensive_route(); 
+	example_route(); 
 }
 
 /**
@@ -125,10 +128,21 @@ void autonomous() {
 			intake.move_voltage(-12000); } 
 		else {
 			intake.move_voltage(0);}
+		//movement
+		if(controller.get_digital(pros::E_CONTROLLER_DIGITAL_UP)){
+			drive_time(50);
+		}
+		if(controller.get_digital(pros::E_CONTROLLER_DIGITAL_DOWN)){
+			drive_time(-50);
+		}
+
 		//mogo clamp
 		if(controller.get_digital(pros::E_CONTROLLER_DIGITAL_L1)){
 			clamp_state = !clamp_state;
 			mogo_clamp.set_value(clamp_state);
+		}
+		if(controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_X)){
+			drive_dist(10);
 		}
 		// Delay is in milliseconds
 		// Important because in a while loop, this is being repeated infinitely
