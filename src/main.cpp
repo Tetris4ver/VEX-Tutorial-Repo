@@ -100,7 +100,7 @@ void autonomous() {
 		// controller defined in globals
 		// .get_analog() returns the reading [-127, 127] of a controller
 		double left = ((controller.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y)) / 127.0);
-		double right = ((controller.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X)) / 127.0) * -1; 
+		double right = ((controller.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X)) / 127.0); 
 
 		// Adjust sensitivity as you see fit
 		// left = left * 0.88;
@@ -130,7 +130,7 @@ void autonomous() {
 			intake.move_voltage(0);}
 		//movement
 		if(controller.get_digital(pros::E_CONTROLLER_DIGITAL_UP)){
-			drive_time(50);
+			drive_time(500);
 		}
 		if(controller.get_digital(pros::E_CONTROLLER_DIGITAL_DOWN)){
 			drive_time(-50);
@@ -142,7 +142,7 @@ void autonomous() {
 			mogo_clamp.set_value(clamp_state);
 		}
 		if(controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_X)){
-			drive_dist(10);
+			turn(15);
 		}
 		// Delay is in milliseconds
 		// Important because in a while loop, this is being repeated infinitely

@@ -36,14 +36,14 @@ std::tuple<double, double, double> turn_lookup(double degrees) {
 	// We tune for angle ranges rather than one specific angle.
 	// The first angle range is from 0 to 15 degrees.
 	if (fabs(degrees) <= 15) {
-		get<0>(constants) = 0; 
+		get<0>(constants) = 300; 
 		get<1>(constants) = 0; 
-		get<2>(constants) = 0; 
+		get<2>(constants) = 2; 
 	}
 	else if (fabs(degrees) <= 30) {
-		get<0>(constants) = 0;
+		get<0>(constants) = 350;
 		get<1>(constants) = 0;
-		get<2>(constants) = 0;
+		get<2>(constants) = 5;
 	}
 	else if (fabs(degrees) <= 40) {
 		get<0>(constants) = 0;
@@ -159,13 +159,11 @@ std::tuple<double, double, double> drive_lookup(double displacement) {
 }
 
 void turn(double angle) {
-
 	// constants
 	std::tuple<double, double, double> constants = turn_lookup(angle);
 	double kP = get<0>(constants);
 	double kI = get<1>(constants);
 	double kD = get<2>(constants);
-
 	
 	// variables
 	double error;
@@ -175,8 +173,8 @@ void turn(double angle) {
 	double previous_error = angle;
 	
 	double error_threshold = 1.5; 
-	double error_timer = 150; 
-	double total_timer = 1200; 
+	double error_timer = 0; 
+	double total_timer = 0; 
 	
 	double error_timeout = 150; 
 	double max_timeout = 1200; 
@@ -187,8 +185,9 @@ void turn(double angle) {
 	right_dt.set_brake_mode_all(E_MOTOR_BRAKE_HOLD);
 	
 	double target = inertial.get_rotation() + angle;
+	
 	// PID loop
-	while (!(error_timer >= error_timeout) || !(total_timer >= max_timeout)) {
+	while ((error_timer <= error_timeout) && (total_timer <= max_timeout)) {
 		error = target - inertial.get_rotation();
 	
 		if (sign(previous_error) != sign(error)) {
@@ -200,6 +199,8 @@ void turn(double angle) {
 		
 		derivative = error - previous_error;
 		previous_error = error;
+
+		
 		
 		double output = error * kP + integral * kI + derivative * kD;
 		// To turn, we spin the motors in opposite directions.
@@ -211,13 +212,13 @@ void turn(double angle) {
 			error_timer += 10;
 		}
 		total_timer += 10;
+
+		controller.print(0, 0, "%.2f, %.2f", total_timer, error_timer);
 		
 		delay(10);
 	}
 	stop_motors();
 }
-
-
 // Instead of an angle, now we have displacement.
 void drive_dist(double displacement) {
 	std::tuple<double, double, double> constants = drive_lookup(displacement);
@@ -251,7 +252,7 @@ void drive_dist(double displacement) {
 	double target = total_displacement() + displacement;
 	
 	// PID loop
-	while (!(error_timer >= error_timeout) || !(total_timer >= max_timeout)) {
+	while ((error_timer >= error_timeout) && (total_timer >= max_timeout)) {
 		error = target - total_displacement();
 		
 		if (sign(previous_error) != sign(error)) {

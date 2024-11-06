@@ -24,13 +24,13 @@ Defining a motor:
 		Usually use degrees or rotations. This tutorial will use rotations.
 */
 // Please note that these are subject to change depending on the robot's configuration.
-Motor fl(16, v5::MotorGears::blue, v5::MotorUnits::rotations);
-Motor ml(18, v5::MotorGears::blue, v5::MotorUnits::rotations);
-Motor bl(3, v5::MotorGears::blue, v5::MotorUnits::rotations);
+Motor fl(-13, v5::MotorGears::blue, v5::MotorUnits::rotations);
+Motor ml(-12, v5::MotorGears::blue, v5::MotorUnits::rotations);
+Motor bl(-11, v5::MotorGears::blue, v5::MotorUnits::rotations);
 
-Motor fr(-13, v5::MotorGears::blue, v5::MotorUnits::rotations);
-Motor mr(-12, v5::MotorGears::blue, v5::MotorUnits::rotations);
-Motor br(-11, v5::MotorGears::blue, v5::MotorUnits::rotations);
+Motor fr(16, v5::MotorGears::blue, v5::MotorUnits::rotations);
+Motor mr(18, v5::MotorGears::blue, v5::MotorUnits::rotations);
+Motor br(3, v5::MotorGears::blue, v5::MotorUnits::rotations);
 
 MotorGroup intake({4,-5}, v5::MotorGears::blue, v5::MotorUnits::rotations);
 
