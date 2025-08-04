@@ -72,7 +72,6 @@ void opcontrol(void);
 
 #ifdef __cplusplus
 #include "globals.h"
-#include "routes.h"
 #include "functions.h"
 #include "tracking.h"
 //#include <iostream>
