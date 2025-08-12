@@ -5,12 +5,6 @@
 // every PROS variable/function
 using namespace pros;
 
-// Drive train gear ratio
-// const keyword indicates that the variable declared cannot change
-extern const double gear_ratio; 
-extern const double wheel_diameter;
-extern const double pi;
-
 // 6 motor drive (front/middle/back, left/right)
 extern Motor fl;
 extern Motor fr;
